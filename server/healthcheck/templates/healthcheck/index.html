@@ -1,0 +1,51 @@
+{% extends "healthcheck/base.html" %}
+
+{% block container %}
+    <div class="heading">
+
+    <h1 class="center">Dashboard</h1>
+    <a class="btn btn-blue btn-rounded" href="">Add</a>
+    </div>
+
+    <div class="grid">
+        <span><strong>Name</strong></span>
+        <span><strong>Start on Stop</strong></span>
+        <span><strong>Type</strong></span>
+        <span><strong>Description</strong></span>
+
+        {% for service in services %}
+            <span>{{ service.name }}</span>
+            <span>{{ service.start_on_stop }}</span>
+            <span>{{ service.get__type_display }}</span>
+            <span>{{ service.description }}</span>
+        {% endfor %}
+    </div>
+
+
+{% endblock container %}
+
+{#{% block container %}#}
+{#    <h1 class="center">Dashboard</h1>#}
+{#    <div class="table">#}
+{#        <div class="title">Services List</div>#}
+{#        <div class="plus"><a class="btn btn-blue btn-rounded" href="">Add</a></div>#}
+{#        <div class="heading">#}
+{#            <div class="cell heading">Name</div>#}
+{#            <div class="cell heading">Start on Stop</div>#}
+{#            <div class="cell heading">Type</div>#}
+{#            <div class="cell heading">Description</div>#}
+{#        </div>#}
+{#        {% for service in services %}#}
+{#            <div class="row">#}
+{#                <div class="cell"><span>{{ service.name }}</span></div>#}
+{#                <div class="cell"><span>{{ service.start_on_stop }}</span></div>#}
+{#                <div class="cell"><span>{{ service.get__type_display }}</span></div>#}
+{#                <div class="cell"><span>{{ service.description }}</span></div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{##}
+{##}
+{#    </div>#}
+{##}
+{#{% endblock container %}#}
+
