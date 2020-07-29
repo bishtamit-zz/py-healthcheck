@@ -72,7 +72,7 @@ class HealthCheck:
         if srv.status1 == 'active':
             log.info(
                 f'{{ {srv.service} }} running with pid {srv.pid} and process: {srv.parent_app}')
-        elif srv.status1 == 'inactive':
+        elif srv.status1 == 'inactive' or srv.status1 == 'failed':
             log.warning(f'{{ {srv.service} }} is not running')
             if self.start_on_stop:
                 srv.restart()
@@ -85,7 +85,7 @@ class HealthCheck:
 
 
 class Service:
-    STATUS_EXP = r'^Active: (?P<status>\w+) \((?P<status2>\w+)\)(?: since (?P<started>.+?); (?P<started2>.*))?'
+    STATUS_EXP = r'^Active: (?P<status>\w+) \((?P<status2>.+?)\)(?: since (?P<started>.+?); (?P<started2>.*))?'
     PROCESS_EXP = r'(?P<pid>\d+) \((?P<parent>[\w-]+)\)'
 
     def __init__(self, service):
@@ -103,6 +103,10 @@ class Service:
         self.description = ""
 
         self.info = {}
+
+    def _infer_type(self):
+        raise NotImplementedError('to be implemented')
+
 
     @staticmethod
     def process_runner(cmd):
